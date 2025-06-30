@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style xmlns="http://purl.org/net/xbiblio/csl" version="1.0" xml:lang="tr">
+  <info>
+    <title>Türkçe Numara Tabanlı (Mendeley Uyumlu)</title>
+    <id>http://www.zotero.org/styles/turkce-numara-mendeley</id>
+    <link href="http://www.zotero.org/styles/turkce-numara-mendeley" rel="self"/>
+    <author>
+      <name>ChatGPT</name>
+    </author>
+    <category citation-format="numeric"/>
+    <updated>2025-07-01T00:00:00+00:00</updated>
+    <summary>Türkçe numaralı kaynakça stili – Mendeley uyumlu.</summary>
+    <language>tr</language>
+  </info>
+
+  <macro name="author">
+    <names variable="author">
+      <name and="text" delimiter=", " initialize-with="." name-as-sort-order="first"/>
+    </names>
+  </macro>
+
+  <macro name="editor">
+    <names variable="editor">
+      <name and="text" delimiter=", " initialize-with="." name-as-sort-order="first"/>
+    </names>
+  </macro>
+
+  <macro name="issued">
+    <date variable="issued">
+      <date-part name="year"/>
+    </date>
+  </macro>
+
+  <citation collapse="citation-number">
+    <sort>
+      <key variable="citation-number"/>
+    </sort>
+    <layout prefix="[" suffix="]" delimiter=", ">
+      <text variable="citation-number"/>
+    </layout>
+  </citation>
+
+  <bibliography et-al-min="5" et-al-use-first="4" entry-spacing="0" line-spacing="1">
+    <layout suffix=".">
+      <text variable="citation-number" suffix=". "/>
+      <group delimiter=", ">
+        <text macro="author"/>
+        <text macro="issued"/>
+      </group>
+
+      <choose>
+        <!-- Makale -->
+        <if type="article-journal">
+          <text variable="title" prefix=". " text-case="sentence"/>
+          <group prefix=". " delimiter=", ">
+            <text variable="container-title"/>
+            <text variable="volume"/>
+            <group prefix="(" suffix=")">
+              <text variable="issue"/>
+            </group>
+          </group>
+          <text variable="page" prefix=": "/>
+        </if>
+
+        <!-- Kitap -->
+        <else-if type="book">
+          <text variable="title" prefix=". " text-case="title"/>
+          <group prefix=". " delimiter=", ">
+            <text variable="publisher"/>
+            <text variable="publisher-place"/>
+          </group>
+          <text variable="number-of-pages" suffix=" s." prefix=", "/>
+        </else-if>
+
+        <!-- Kitap Bölümü -->
+        <else-if type="chapter">
+          <text variable="title" prefix=". " text-case="sentence"/>
+          <text variable="page" prefix=", "/>
+          <group prefix=". In: ">
+            <text variable="container-title" text-case="title"/>
+            <text macro="editor" prefix=" (Eds: " suffix=")"/>
+          </group>
+          <group prefix=". " delimiter=", ">
+            <text variable="publisher"/>
+            <text variable="publisher-place"/>
+          </group>
+        </else-if>
+
+        <!-- Bildiri -->
+        <else-if type="paper-conference">
+          <text variable="title" prefix=". " text-case="sentence"/>
+          <text variable="page" prefix=", "/>
+          <group prefix=". " delimiter=", ">
+            <text variable="event"/>
+            <text variable="publisher-place"/>
+            <text variable="publisher"/>
+            <text variable="number-of-pages" suffix=" s."/>
+          </group>
+        </else-if>
+
+        <!-- Tez -->
+        <else-if type="thesis">
+          <text variable="title" prefix=". " text-case="title"/>
+          <group prefix=". " delimiter=", ">
+            <text variable="publisher"/>
+            <text variable="genre"/>
+            <text variable="publisher-place"/>
+          </group>
+          <text variable="number-of-pages" suffix=" s." prefix=", "/>
+        </else-if>
+
+        <!-- Web -->
+        <else-if type="webpage">
+          <text variable="title" prefix=". " text-case="title"/>
+          <text variable="URL" prefix=". "/>
+        </else-if>
+      </choose>
+    </layout>
+  </bibliography>
+</style>
